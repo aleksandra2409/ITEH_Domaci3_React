@@ -1,5 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
-  return <div className="header">Movies</div>;
+  let navigate = useNavigate();
+
+  return <div className="header" onClick={() => navigate("/")}>Movies</div>;
 }
