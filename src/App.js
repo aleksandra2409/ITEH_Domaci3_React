@@ -10,6 +10,7 @@ function App() {
   const [movie, setMovie] = useState([]);
   const [movies, setMovies] = useState([]);
   const [searchField, setSearchField] = useState("");
+  const [sortDirection, setSortDirection] = useState("desc");
 
   useEffect(() => {
     setMovies(movieList);
@@ -30,13 +31,28 @@ function App() {
     setSearchField(e.target.value);
   };
 
+  const handleSort = () => {
+    let sortedMovies;
+    if (sortDirection === "desc") {
+      sortedMovies = [...movies].sort((a, b) => a.year - b.year);
+      setSortDirection("asc");
+    } else if (sortDirection === "asc") {
+      sortedMovies = [...movies].sort((a, b) => b.year - a.year);
+      setSortDirection("desc");
+    }
+
+    setMovies(sortedMovies);
+  };
+
   return (
     <>
-      <Header handleChange={handleChange} />
+      <Header handleChange={handleChange} handleSort={handleSort} />
       <Routes>
         <Route
           path="/"
-          element={<Home movies={filteredMovies} openMovie={openMovie} />}
+          element={
+            <Home movies={filteredMovies} openMovie={openMovie} a={movies} />
+          }
         />
         <Route path="/movie" element={<Movie movie={movie} />} />
       </Routes>

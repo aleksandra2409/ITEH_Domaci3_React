@@ -8,7 +8,9 @@ export default function Header(props) {
   return (
     <div className="header">
       {location.pathname !== "/movie" && (
-        <div className="header__sort">Sort</div>
+        <div className="header__sort" onClick={() => props.handleSort()}>
+          Sort
+        </div>
       )}
       <div className="header__title" onClick={() => navigate("/")}>
         Movies
